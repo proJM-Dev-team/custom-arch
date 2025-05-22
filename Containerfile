@@ -25,8 +25,14 @@ RUN install-packages-build podman podman-compose
 # Install dependencies for winapps
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
-# Install extra packages that I use
-RUN install-packages-build celluloid gamescope mangohud fastfetch cava
+# Install extra GUI packages that I use
+RUN install-packages-build celluloid
+
+# Install extra CLI packages that I use
+RUN install-packages-build rclone fastfetch cava
+
+# Install all other packages that I use
+RUN install-packages-build mangohud gamescope
 
 # Some AUR packages will need to be installed through paru
 RUN useradd -m -s /bin/bash aur && \
@@ -42,8 +48,8 @@ RUN useradd -m -s /bin/bash aur && \
 # Installing dependencies for hyprpm
 RUN install-packages-build cmake meson cpio pkg-config
 
-RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
-    hyprpm enable dynamic-cursors
+#RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
+#    hyprpm enable dynamic-cursors
 
 COPY overlays/common overlay[s]/${DESKTOP} /
 RUN rm -f /.gitkeep
