@@ -19,6 +19,9 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 # Install hyprland desktop, wezterm terminal and ly login
 RUN install-packages-build hyprland wezterm ly; systemctl enable ly.service
 
+# Installing dependencies for hyprpm and others
+RUN install-packages-build cmake meson cpio pkg-config
+
 # Install podman and the compose script for winapps and other tasks 
 RUN install-packages-build podman podman-compose
 
@@ -48,9 +51,6 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- paru -S --noconfirm ironbar-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade; \
     userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
-
-# Installing dependencies for hyprpm
-RUN install-packages-build cmake meson cpio pkg-config
 
 #RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
 #    hyprpm enable dynamic-cursors
