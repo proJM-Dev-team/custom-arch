@@ -26,7 +26,7 @@ RUN install-packages-build podman podman-compose
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
 # Install extra GUI packages that I use
-RUN install-packages-build celluloid
+#RUN install-packages-build celluloid
 
 # Install extra CLI packages that I use
 RUN install-packages-build rclone fastfetch cava
@@ -42,8 +42,11 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_aur_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_aur_build/paru-bin makepkg -si --noconfirm && \
     rm -rf /tmp_aur_build && \
-    runuser -u aur -- paru -S --noconfirm libadapta-git downgrade; \
-    runuser -u aur -- paru -S --noconfirm freetube-bin ironbar-git hyprshade; \
+    runuser -u aur -- paru -S --noconfirm downgrade; \
+    runuser -u aur -- paru -S --noconfirm libadapta-git; \
+    runuser -u aur -- paru -S --noconfirm freetube-bin; \
+    runuser -u aur -- paru -S --noconfirm ironbar-git; \
+    runuser -u aur -- paru -S --noconfirm hyprshade; \
     userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 # Installing dependencies for hyprpm
