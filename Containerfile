@@ -13,16 +13,24 @@ ARG DESKTOP=nogui
 # IMPORTANT: Do NOT use `pacman -S` to install packages.
 # Instead, use install-packages-build, as demonstrated in the following examples:
 
-# To include Micro and Firefox
-RUN install-packages-build micro firefox
+# Install Hyprland desktop and Wezterm terminal
+RUN install-packages-build hyprland wezterm
 
-# To include and enable the Caddy web server
-RUN install-packages-build caddy; systemctl enable caddy
+# Install podman and the compose script for winapps and other tasks 
+RUN install-packages-build podman podman-compose
 
-# To use TLP for power-saving on laptops (https://wiki.archlinux.org/title/TLP)
-RUN install-packages-build tlp; \
-    systemctl enable tlp; \
-    systemctl mask systemd-rfkill.service systemd-rfkill.socket
+# Installing dependencies for winapps
+RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
+
+RUN useradd -m -s /bin/bash aur && \
+    echo "aur ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/aur && \
+    mkdir -p /tmp_aur_build && chown -R aur /tmp_aur_build && \
+    install-packages-build git base-devel; \
+    runuser -u aur -- env -C /tmp_aur_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
+    runuser -u aur -- env -C /tmp_aur_build/paru-bin makepkg -si --noconfirm && \
+    rm -rf /tmp_aur_build && \
+    runuser -u aur -- paru -S --noconfirm libadapta downgrade freetube-bin; \
+    userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 COPY overlays/common overlay[s]/${DESKTOP} /
 RUN rm -f /.gitkeep
