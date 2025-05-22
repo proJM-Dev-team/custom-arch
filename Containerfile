@@ -42,7 +42,8 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_aur_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_aur_build/paru-bin makepkg -si --noconfirm && \
     rm -rf /tmp_aur_build && \
-    runuser -u aur -- paru -S --noconfirm libadapta-git downgrade freetube-bin ironbar-git hyprshade; \
+    runuser -u aur -- paru -S --noconfirm libadapta-git downgrade; \
+    runuser -u aur -- paru -S --noconfirm freetube-bin ironbar-git hyprshade; \
     userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 # Installing dependencies for hyprpm
