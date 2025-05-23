@@ -35,14 +35,18 @@ RUN install-packages-build rclone fastfetch cava
 RUN install-packages-build mangohud gamescope
 
 # Some AUR packages will need to be installed through paru
+# Also compile the libadapta package with a PKGBUILD
 RUN useradd -m -s /bin/bash aur && \
     echo "aur ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/aur && \
     mkdir -p /tmp_aur_build && chown -R aur /tmp_aur_build && \
     install-packages-build git base-devel; \
     runuser -u aur -- env -C /tmp_aur_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_aur_build/paru-bin makepkg -si --noconfirm && \
+    runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
+    runuser -u aur -- env -C /tmp_aur_build/libadapta curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/libadapta/PKGBUILD' && \
+    runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -si --noconfirm && \
     rm -rf /tmp_aur_build && \
-    runuser -u aur -- paru -S --noconfirm libadapta-git downgrade freetube-bin ironbar-git hyprshade; \
+    runuser -u aur -- paru -S --noconfirm downgrade freetube-bin ironbar-git hyprshade; \
     userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 # Installing dependencies for hyprpm
