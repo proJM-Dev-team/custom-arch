@@ -50,7 +50,6 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -si --noconfirm && \
     rm -rf /tmp_aur_build && \
     runuser -u aur -- paru -S --noconfirm downgrade; \
-    runuser -u aur -- paru -S --noconfirm libadapta-git; \
     runuser -u aur -- paru -S --noconfirm freetube-bin; \
     runuser -u aur -- paru -S --noconfirm ironbar-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade; \
