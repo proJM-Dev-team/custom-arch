@@ -2,7 +2,7 @@ ARG CORE_BRANCH=main
 ARG SUFFIX=
 ARG DESKTOP=nogui
 
-FROM ghcr.io/commonarch/system-base${SUFFIX}-${DESKTOP}:main
+FROM ghcr.io/projm-dev-team/system-base${SUFFIX}-${DESKTOP}:main
 
 ARG CORE_BRANCH=main
 ARG VARIANT=general
@@ -19,6 +19,9 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 # Install hyprland desktop, wezterm terminal and ly login
 RUN install-packages-build hyprland wezterm ly; systemctl enable ly.service
 
+# Installing dependencies for hyprpm and others
+RUN install-packages-build cmake meson cpio pkg-config
+
 # Install podman and the compose script for winapps and other tasks 
 RUN install-packages-build podman podman-compose
 
@@ -26,7 +29,7 @@ RUN install-packages-build podman podman-compose
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
 # Install extra GUI packages that I use
-RUN install-packages-build celluloid
+#RUN install-packages-build celluloid
 
 # Install extra CLI packages that I use
 RUN install-packages-build rclone fastfetch cava
@@ -46,11 +49,12 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/libadapta/PKGBUILD' && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -si --noconfirm && \
     rm -rf /tmp_aur_build && \
-    runuser -u aur -- paru -S --noconfirm downgrade freetube-bin ironbar-git hyprshade; \
+    runuser -u aur -- paru -S --noconfirm downgrade; \
+    runuser -u aur -- paru -S --noconfirm libadapta-git; \
+    runuser -u aur -- paru -S --noconfirm freetube-bin; \
+    runuser -u aur -- paru -S --noconfirm ironbar-git; \
+    runuser -u aur -- paru -S --noconfirm hyprshade; \
     userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
-
-# Installing dependencies for hyprpm
-RUN install-packages-build cmake meson cpio pkg-config
 
 #RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
 #    hyprpm enable dynamic-cursors
