@@ -67,16 +67,11 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
-# Testing to see if this will fix the hyprpm errors
-RUN runuser -u aur -- Hyprland && \
-    sleep 3 && \
-    hyprctl dispatch exit
-
 # Delete all things related to the aur user 
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
-RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
-    hyprpm enable dynamic-cursors
+#RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
+#    hyprpm enable dynamic-cursors
 
 COPY overlays/common overlay[s]/${DESKTOP} /
 RUN rm -f /.gitkeep
