@@ -19,6 +19,9 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 # Install hyprland desktop, wezterm terminal and ly login
 RUN install-packages-build hyprland wezterm ly; systemctl enable ly.service
 
+# Install nemo file manager and it's extensions
+RUN install-packages-build nemo nemo-terminal nemo-preview nemo-pastebin nemo-image-converter nemo-fileroller nemo-emblems nemo-audio-tab
+
 # Installing dependencies for hyprpm and others
 RUN install-packages-build cmake meson cpio pkg-config
 
@@ -32,7 +35,7 @@ RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 RUN install-packages-build steam
 
 # Install extra CLI packages that I use
-RUN install-packages-build rclone fastfetch cava
+RUN install-packages-build vim rclone fastfetch cava
 
 # Install all other packages that I use
 RUN install-packages-build mangohud gamescope
@@ -73,6 +76,4 @@ RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 #RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
 #    hyprpm enable dynamic-cursors
 
-COPY overlays/common overlay[s]/${DESKTOP} /
-RUN rm -f /.gitkeep
 RUN yes | pacman -Scc
