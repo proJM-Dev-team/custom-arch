@@ -48,12 +48,12 @@ RUN useradd -m -s /bin/bash aur && \
 # Compile the libadapta package with a PKGBUILD
 RUN runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/libadapta/PKGBUILD' && \
-    runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -sir --noconfirm && \
+    runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -sir --noconfirm
     
 # Grab the sounds from the cinnamon desktop
 RUN runuser -u aur -- env -C /tmp_aur_build mkdir cinnamon-sounds && \
     runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/PKGBUILD' && \
-    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm && \
+    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm
 
 RUN rm -rf /tmp_aur_build 
 
@@ -68,6 +68,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 
 # Testing to see if this will fix the hyprpm errors
 RUN runuser -u aur -- Hyprland && \
+    sleep 3 && 
     hyprctl dispatch exit
 
 # Delete all things related to the aur user 
