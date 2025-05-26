@@ -20,7 +20,7 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 RUN install-packages-build hyprland wezterm ly; systemctl enable ly.service
 
 # Install nemo file manager and it's extensions
-RUN install-packages-build nemo nemo-terminal nemo-preview nemo-pastebin nemo-image-converter nemo-fileroller nemo-emblems nemo-audio-tab
+RUN install-packages-build nemo nemo-terminal nemo-preview nemo-pastebin nemo-image-converter nemo-fileroller nemo-emblems nemo-audio-tab ffmpegthumbnailer
 
 # Installing dependencies for hyprpm and others
 RUN install-packages-build cmake meson cpio pkg-config
@@ -37,8 +37,14 @@ RUN install-packages-build steam
 # Install extra CLI packages that I use
 RUN install-packages-build vim rclone fastfetch cava
 
+# Install optional dependencies that I use
+RUN nstall-packages-build chafa libxnvctrl bat yt-dlp
+
 # Install all other packages that I use
-RUN install-packages-build mangohud gamescope
+RUN install-packages-build mangohud gamescope 
+
+# Install some packages that are required for the AUR packages
+RUN install-packages-build glib2-devel 
 
 # Some AUR packages will need to be installed through paru
 RUN useradd -m -s /bin/bash aur && \
