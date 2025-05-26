@@ -29,7 +29,7 @@ RUN install-packages-build podman podman-compose
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
 # Install extra GUI packages that I use
-#RUN install-packages-build celluloid
+RUN install-packages-build steam
 
 # Install extra CLI packages that I use
 RUN install-packages-build rclone fastfetch cava
@@ -38,25 +38,43 @@ RUN install-packages-build rclone fastfetch cava
 RUN install-packages-build mangohud gamescope
 
 # Some AUR packages will need to be installed through paru
-# Also compile the libadapta package with a PKGBUILD
 RUN useradd -m -s /bin/bash aur && \
     echo "aur ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/aur && \
     mkdir -p /tmp_aur_build && chown -R aur /tmp_aur_build && \
     install-packages-build git base-devel; \
     runuser -u aur -- env -C /tmp_aur_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
-    runuser -u aur -- env -C /tmp_aur_build/paru-bin makepkg -si --noconfirm && \
-    runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
+    runuser -u aur -- env -C /tmp_aur_build/paru-bin makepkg -si --noconfirm
+    
+# Compile the libadapta package with a PKGBUILD
+RUN runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/libadapta/PKGBUILD' && \
-    runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -si --noconfirm && \
-    rm -rf /tmp_aur_build && \
-    runuser -u aur -- paru -S --noconfirm downgrade; \
+    runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -sir --noconfirm && \
+    
+# Grab the sounds from the cinnamon desktop
+RUN runuser -u aur -- env -C /tmp_aur_build mkdir cinnamon-sounds && \
+    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/PKGBUILD' && \
+    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm && \
+
+RUN rm -rf /tmp_aur_build 
+
+# Paru will only install 2 packages at a time 
+# For debugging they are all on their own line
+RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm freetube-bin; \
     runuser -u aur -- paru -S --noconfirm ironbar-git; \
-    runuser -u aur -- paru -S --noconfirm hyprshade; \
-    userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
+    runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
+    runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
+    runuser -u aur -- paru -S --noconfirm hyprshade
 
-#RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
-#    hyprpm enable dynamic-cursors
+# Testing to see if this will fix the hyprpm errors
+RUN runuser -u aur -- Hyprland && \
+    hyprctl dispatch exit
+
+# Delete all things related to the aur user 
+RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
+
+RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
+    hyprpm enable dynamic-cursors
 
 COPY overlays/common overlay[s]/${DESKTOP} /
 RUN rm -f /.gitkeep
