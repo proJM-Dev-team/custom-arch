@@ -38,7 +38,7 @@ RUN install-packages-build steam
 RUN install-packages-build vim rclone fastfetch cava
 
 # Install optional dependencies that I use
-RUN nstall-packages-build chafa libxnvctrl bat yt-dlp
+RUN install-packages-build chafa libxnvctrl bat yt-dlp
 
 # Install all other packages that I use
 RUN install-packages-build mangohud gamescope 
