@@ -68,7 +68,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 
 # Testing to see if this will fix the hyprpm errors
 RUN runuser -u aur -- Hyprland && \
-    sleep 3 && 
+    sleep 3 && \
     hyprctl dispatch exit
 
 # Delete all things related to the aur user 
