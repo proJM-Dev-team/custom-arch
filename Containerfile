@@ -53,6 +53,7 @@ RUN runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
 # Grab the sounds from the cinnamon desktop
 RUN runuser -u aur -- env -C /tmp_aur_build mkdir cinnamon-sounds && \
     runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/PKGBUILD' && \
+    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/cinnamon-sounds.install' && \
     runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm
 
 RUN rm -rf /tmp_aur_build 
