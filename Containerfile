@@ -63,11 +63,14 @@ RUN rm -rf /tmp_aur_build
 
 # Paru will only install 2 packages at a time 
 # For debugging they are all on their own line
+# Some packages will be in the chaotic AUR but I'll keep them here
+# This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
-    runuser -u aur -- paru -S --noconfirm freetube-bin; \
+    runuser -u aur -- paru -S --noconfirm freetube; \
     runuser -u aur -- paru -S --noconfirm ironbar-git; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
+    runuser -u aur -- paru -S --noconfirm bulky; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
 # Delete all things related to the aur user 
