@@ -15,7 +15,7 @@ source=("http://packages.linuxmint.com/pool/main/m/mint-artwork/mint-artwork_${p
         "cinnamon-sounds.install")
 
 sha256sums=('30a5ca9dedf0ab17c8aa639ac299996d7fcd455480e5f05eb69484fa6aff7aa0'
-            'd74b6c04f500c3c1c705c4f490801b669c8ee3a7612dea840a575aaa2d7961dc')
+            'db11d6e8df4cbe1c456e7f19ac876c2e2abfd7018dfbc6a7c26e443f8dfb0c74')
 
 package() {
   install="${pkgname}.install"
