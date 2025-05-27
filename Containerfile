@@ -41,10 +41,10 @@ RUN install-packages-build vim rclone fastfetch cava
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
 
 # Install all other packages that I use
-RUN install-packages-build mangohud gamescope 
+RUN install-packages-build mangohud gamescope distrobox
 
-# Install some packages that are required for the AUR packages
-RUN install-packages-build glib2-devel 
+# Install some packages that are required for the AUR packages and scripts
+RUN install-packages-build glib2-devel lshw
 
 # Some AUR packages will need to be installed through paru
 RUN useradd -m -s /bin/bash aur && \
@@ -60,10 +60,10 @@ RUN runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -sir --noconfirm
     
 # Grab the sounds from the cinnamon desktop
-RUN runuser -u aur -- env -C /tmp_aur_build mkdir cinnamon-sounds && \
-    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/PKGBUILD' && \
-    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/cinnamon-sounds.install' && \
-    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm
+#RUN runuser -u aur -- env -C /tmp_aur_build mkdir cinnamon-sounds && \
+#    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/PKGBUILD' && \
+#    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/cinnamon-sounds.install' && \
+#    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm
 
 RUN rm -rf /tmp_aur_build 
 
@@ -74,6 +74,7 @@ RUN rm -rf /tmp_aur_build
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm freetube; \
     runuser -u aur -- paru -S --noconfirm ironbar-git; \
+    runuser -u aur -- paru -S --noconfirm cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm bulky; \
