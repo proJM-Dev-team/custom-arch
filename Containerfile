@@ -35,7 +35,7 @@ RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 RUN install-packages-build steam
 
 # Install extra CLI packages that I use
-RUN install-packages-build vim rclone fastfetch cava
+RUN install-packages-build rclone fastfetch cava zip unzip
 
 # Install optional dependencies that I use
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
@@ -59,12 +59,6 @@ RUN runuser -u aur -- env -C /tmp_aur_build mkdir libadapta && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/libadapta/PKGBUILD' && \
     runuser -u aur -- env -C /tmp_aur_build/libadapta makepkg -sir --noconfirm
     
-# Grab the sounds from the cinnamon desktop
-#RUN runuser -u aur -- env -C /tmp_aur_build mkdir cinnamon-sounds && \
-#    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/PKGBUILD' && \
-#    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds curl -O 'https://raw.githubusercontent.com/proJM-Dev-team/custom-arch/refs/heads/main/pkgbuilds/cinnamon-sounds/cinnamon-sounds.install' && \
-#    runuser -u aur -- env -C /tmp_aur_build/cinnamon-sounds makepkg -si --noconfirm
-
 RUN rm -rf /tmp_aur_build 
 
 # Paru will only install 2 packages at a time 
@@ -85,5 +79,8 @@ RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 #RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
 #    hyprpm enable dynamic-cursors
+
+# Install some last packages like a secondary desktop
+RUN install-packages-build tde-meta
 
 RUN yes | pacman -Scc
