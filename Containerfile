@@ -55,7 +55,7 @@ RUN install-packages-build chafa libxnvctrl bat yt-dlp
 RUN install-packages-build mangohud gamescope distrobox
 
 # Install some packages that are required for the AUR packages and scripts
-RUN install-packages-build glib2-devel lshw
+RUN install-packages-build glib2-devel lshw python-pip
 
 # Some AUR packages will need to be installed through paru
 RUN useradd -m -s /bin/bash aur && \
@@ -71,13 +71,8 @@ RUN runuser -u aur -- env -C /tmp_build git clone 'https://github.com/proJM-Dev-
     
 # While we still have the user and folder let's run some scripts that don't need root
 RUN runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts python -m venv colour-icons && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts pwd && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts ls colour-icons && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons source /tmp_build/custom-arch/scripts/colour-icons/bin/activate && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons pip install basic_colormath && \
+    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons pip install --user basic_colormath && \
     runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons python colour-icons.py && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons deactivate && \
 
 RUN rm -rf /tmp_build 
 
