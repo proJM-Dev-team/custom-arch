@@ -72,7 +72,7 @@ RUN runuser -u aur -- env -C /tmp_build git clone 'https://github.com/proJM-Dev-
 # While we still have the user and folder let's run some scripts that don't need root
 RUN runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
     runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons python3 -m venv colour-icons && \
-    runuser -U aur -- env -C /tmp_build/custom-arch/scripts/colour-icons source /tmp_build/custom-arch/scripts/colour-icons/bin/activate && \
+    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons source /tmp_build/custom-arch/scripts/colour-icons/bin/activate && \
     runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons pip install basic_colormath && \
     runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons python3 colour-icons.py && \
     runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons deactivate
