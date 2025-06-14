@@ -74,7 +74,7 @@ RUN runuser -u aur -- env -C /tmp_build git clone 'https://github.com/proJM-Dev-
 RUN runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
     runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons pip install --user --break-system-packages basic_colormath && \
     chown -R aur:aur /usr/share/icons && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons python colour-icons.py && \
+    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons python colour-icons.py
 
 RUN rm -rf /tmp_build 
 
