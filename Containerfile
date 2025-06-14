@@ -43,7 +43,8 @@ RUN install-packages-build podman podman-compose
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
 # Install extra GUI packages that I use
-RUN install-packages-build steam firefox ladybird-git
+RUN install-packages-build steam firefox 
+#ladybird-git
 
 # Install extra CLI packages that I use
 RUN install-packages-build rclone fastfetch cava zip unzip cmus
