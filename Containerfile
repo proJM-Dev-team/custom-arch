@@ -55,7 +55,7 @@ RUN install-packages-build chafa libxnvctrl bat yt-dlp
 RUN install-packages-build mangohud gamescope distrobox
 
 # Install some packages that are required for the AUR packages and scripts
-RUN install-packages-build glib2-devel lshw
+RUN install-packages-build glib2-devel lshw python-pip
 
 # Some AUR packages will need to be installed through paru
 RUN useradd -m -s /bin/bash aur && \
