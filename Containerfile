@@ -28,7 +28,7 @@ RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji n
 # If icons fail we can use the gruvbox-plus-icon-theme-git AUR package
 
 # Packages which are hyprland utilities
-RUN install-packages-build hyprshot hyprpicker swww hyprpolkitagent
+RUN install-packages-build hyprpicker swww hyprpolkitagent
 
 # Some other utilities that hyprland will use
 RUN install-packages-build playerctl brightnessctl
@@ -87,6 +87,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm bulky; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
+    runuser -u aur -- paru -S --noconfirm hyprshade hyprshot-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
 # Delete all things related to the aur user 
