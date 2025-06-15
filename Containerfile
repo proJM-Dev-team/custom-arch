@@ -31,7 +31,7 @@ RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji n
 RUN install-packages-build hyprpicker swww hyprpolkitagent
 
 # Some other utilities that hyprland will use
-RUN install-packages-build playerctl brightnessctl
+RUN install-packages-build playerctl brightnessctl hyprshot
 
 # Installing dependencies for hyprpm and others
 RUN install-packages-build cmake meson cpio pkg-config
@@ -43,8 +43,7 @@ RUN install-packages-build podman podman-compose
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
 # Install extra GUI packages that I use
-RUN install-packages-build steam firefox 
-#ladybird-git
+RUN install-packages-build steam firefox ladybird-git
 
 # Install extra CLI packages that I use
 RUN install-packages-build rclone fastfetch cava zip unzip cmus
@@ -90,7 +89,6 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm bulky; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
-    runuser -u aur -- paru -S --noconfirm hyprshade hyprshot-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
 # Delete all things related to the aur user 
