@@ -91,9 +91,9 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
-RUN runuser -u aur -- XDG_CURRENT_DESKTOP='Hyprland'
-RUN runuser -u aur -- XDG_SESSION_TYPE='wayland'
-RUN runuser -u aur -- XDG_SESSION_DESKTOP='Hyprland'
+RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
+RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'
+RUN runuser -u aur -- export XDG_SESSION_DESKTOP='Hyprland'
 
 RUN runuser -u aur -- hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
     runuser -u aur -- hyprpm enable dynamic-cursors && \
