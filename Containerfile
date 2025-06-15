@@ -91,27 +91,27 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
-# Delete all things related to the aur user 
-RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
+RUN runuser -u aur -- XDG_CURRENT_DESKTOP='Hyprland'
+RUN runuser -u aur -- XDG_SESSION_TYPE='wayland'
+RUN runuser -u aur -- XDG_SESSION_DESKTOP='Hyprland'
 
-RUN XDG_CURRENT_DESKTOP='Hyprland'
-RUN XDG_SESSION_TYPE='wayland'
-RUN XDG_SESSION_DESKTOP='Hyprland'
-
-RUN hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
-    hyprpm enable dynamic-cursors && \
-    hyprpm add https://github.com/KZDKM/Hyprspace && \
-    hyprpm enable Hyprspace && \
-    hyprpm add https://github.com/ItsDrike/hyprland-dwindle-autogroup && \
-    hyprpm enable dwindle-autogroup && \ 
-    hyprpm add https://github.com/Duckonaut/split-monitor-workspaces && \
-    hyprpm enable split-monitor-workspaces && \
-    hyprpm add https://gitlab.com/magus/hyprslidr && \
-    hyprpm enable hyprslidr
+RUN runuser -u aur -- hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
+    runuser -u aur -- hyprpm enable dynamic-cursors && \
+    runuser -u aur -- hyprpm add https://github.com/KZDKM/Hyprspace && \
+    runuser -u aur -- hyprpm enable Hyprspace && \
+    runuser -u aur -- hyprpm add https://github.com/ItsDrike/hyprland-dwindle-autogroup && \
+    runuser -u aur -- hyprpm enable dwindle-autogroup && \ 
+    runuser -u aur -- hyprpm add https://github.com/Duckonaut/split-monitor-workspaces && \
+    runuser -u aur -- hyprpm enable split-monitor-workspaces && \
+    runuser -u aur -- hyprpm add https://gitlab.com/magus/hyprslidr && \
+    runuser -u aur -- hyprpm enable hyprslidr
 
 # Unsure about these plugins being used, I will need to test them 
-    #hyprpm add https://github.com/hyprwm/hyprland-plugins && \
-    #hyprpm enable hyprscrolling
+    #runuser -u aur -- hyprpm add https://github.com/hyprwm/hyprland-plugins && \
+    #runuser -u aur -- hyprpm enable hyprscrolling
+
+# Delete all things related to the aur user 
+RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 # Install some last packages like a secondary desktop
 RUN install-packages-build tde-meta
