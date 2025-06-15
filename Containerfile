@@ -91,20 +91,20 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
-RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
-RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'
-RUN runuser -u aur -- export XDG_SESSION_DESKTOP='Hyprland'
+#RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
+#RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'
+#RUN runuser -u aur -- export XDG_SESSION_DESKTOP='Hyprland'
 
-RUN runuser -u aur -- hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
-    runuser -u aur -- hyprpm enable dynamic-cursors && \
-    runuser -u aur -- hyprpm add https://github.com/KZDKM/Hyprspace && \
-    runuser -u aur -- hyprpm enable Hyprspace && \
-    runuser -u aur -- hyprpm add https://github.com/ItsDrike/hyprland-dwindle-autogroup && \
-    runuser -u aur -- hyprpm enable dwindle-autogroup && \ 
-    runuser -u aur -- hyprpm add https://github.com/Duckonaut/split-monitor-workspaces && \
-    runuser -u aur -- hyprpm enable split-monitor-workspaces && \
-    runuser -u aur -- hyprpm add https://gitlab.com/magus/hyprslidr && \
-    runuser -u aur -- hyprpm enable hyprslidr
+#RUN runuser -u aur -- hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
+#    runuser -u aur -- hyprpm enable dynamic-cursors && \
+#    runuser -u aur -- hyprpm add https://github.com/KZDKM/Hyprspace && \
+#    runuser -u aur -- hyprpm enable Hyprspace && \
+#    runuser -u aur -- hyprpm add https://github.com/ItsDrike/hyprland-dwindle-autogroup && \
+#    runuser -u aur -- hyprpm enable dwindle-autogroup && \ 
+#    runuser -u aur -- hyprpm add https://github.com/Duckonaut/split-monitor-workspaces && \
+#    runuser -u aur -- hyprpm enable split-monitor-workspaces && \
+#    runuser -u aur -- hyprpm add https://gitlab.com/magus/hyprslidr && \
+#    runuser -u aur -- hyprpm enable hyprslidr
 
 # Unsure about these plugins being used, I will need to test them 
     #runuser -u aur -- hyprpm add https://github.com/hyprwm/hyprland-plugins && \
