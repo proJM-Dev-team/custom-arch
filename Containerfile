@@ -119,4 +119,5 @@ RUN install-packages-build tde-meta
 RUN yes | pacman -Scc
 
 # Copy the configs to be created when a new user is made
-COPY .config/ /etc/skel
+RUN mkdir /etc/skel/.config
+COPY .config/ /etc/skel/.config
