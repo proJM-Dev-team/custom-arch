@@ -31,7 +31,7 @@ RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji n
 RUN install-packages-build hyprpicker swww hyprpolkitagent
 
 # Some other utilities that hyprland will use
-RUN install-packages-build playerctl brightnessctl hyprshot
+RUN install-packages-build playerctl brightnessctl hyprshot swaync
 
 # Installing dependencies for hyprpm and others
 RUN install-packages-build cmake meson cpio pkg-config
@@ -46,7 +46,7 @@ RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 RUN install-packages-build steam firefox ladybird-git
 
 # Install extra CLI packages that I use
-RUN install-packages-build rclone fastfetch cava zip unzip cmus
+RUN install-packages-build rclone fastfetch cava zip unzip cmus btop mpd 
 
 # Install optional dependencies that I use
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
