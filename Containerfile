@@ -67,12 +67,14 @@ RUN useradd -m -s /bin/bash aur && \
 
 RUN runuser -u aur -- env -C /tmp_build mkdir pkgbuilds
 COPY pkgbuilds/ /tmp_build/pkgbuilds/
+RUN chown -R aur:aur /tmp_build/pkgbuilds/
     
 # Compile the libadapta package with a PKGBUILD
 RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm
     
 RUN runuser -u aur -- env -C /tmp_build mkdir scripts
 COPY scripts/ /tmp_build/scripts/
+RUN chown -R aur:aur /tmp_build/script/
 
 # While we still have the user and folder let's run some scripts that don't need root
 RUN runuser -u aur -- env -C /tmp_build/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
