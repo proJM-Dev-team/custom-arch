@@ -74,7 +74,7 @@ RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --nocon
     
 RUN runuser -u aur -- env -C /tmp_build mkdir scripts
 COPY scripts/ /tmp_build/scripts/
-RUN chown -R aur:aur /tmp_build/script/
+RUN chown -R aur:aur /tmp_build/scripts/
 
 # While we still have the user and folder let's run some scripts that don't need root
 RUN runuser -u aur -- env -C /tmp_build/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
