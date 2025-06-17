@@ -91,6 +91,8 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
+RUN runuser -u aur -- yes | paru -Sccd
+
 #RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
 #RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'
 #RUN runuser -u aur -- export XDG_SESSION_DESKTOP='Hyprland'
