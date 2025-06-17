@@ -65,13 +65,13 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_build/paru-bin makepkg -si --noconfirm
 
-RUN runuser -u aur -- env -C /tmp_build mkdir/pkgbuilds
+RUN runuser -u aur -- env -C /tmp_build mkdir pkgbuilds
 COPY pkgbuilds/ /tmp_build/pkgbuilds
     
 # Compile the libadapta package with a PKGBUILD
 RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm
     
-RUN runuser -u aur -- env -C /tmp_build mkdir/scripts
+RUN runuser -u aur -- env -C /tmp_build mkdir scripts
 COPY scripts/ /tmp_build/scripts
 
 # While we still have the user and folder let's run some scripts that don't need root
