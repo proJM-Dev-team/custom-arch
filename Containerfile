@@ -96,7 +96,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm bulky; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
-    runuser -u aur -- paru -S --noconfirm xava; \
+    runuser -u aur -- paru -S --noconfirm xava-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
 #RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
