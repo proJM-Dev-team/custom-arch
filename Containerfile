@@ -64,16 +64,21 @@ RUN useradd -m -s /bin/bash aur && \
     install-packages-build git base-devel; \
     runuser -u aur -- env -C /tmp_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_build/paru-bin makepkg -si --noconfirm
+
+RUN runuser -u aur -- env -C /tmp_build mkdir/pkgbuilds
+COPY pkgbuilds/ /tmp_build/pkgbuilds
     
 # Compile the libadapta package with a PKGBUILD
-RUN runuser -u aur -- env -C /tmp_build git clone 'https://github.com/proJM-Dev-team/custom-arch.git' && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/pkgbuilds/libadapta makepkg -sir --noconfirm
+RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm
     
+RUN runuser -u aur -- env -C /tmp_build mkdir/scripts
+COPY scripts/ /tmp_build/scripts
+
 # While we still have the user and folder let's run some scripts that don't need root
-RUN runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons pip install --user --break-system-packages basic_colormath && \
+RUN runuser -u aur -- env -C /tmp_build/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
+    runuser -u aur -- env -C /tmp_build/scripts/colour-icons pip install --user --break-system-packages basic_colormath && \
     chown -R aur:aur /usr/share/icons && \
-    runuser -u aur -- env -C /tmp_build/custom-arch/scripts/colour-icons python colour-icons.py
+    runuser -u aur -- env -C /tmp_build/scripts/colour-icons python colour-icons.py
 
 RUN rm -rf /tmp_build 
 
@@ -90,8 +95,6 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm bulky; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm hyprshade
-
-RUN runuser -u aur -- yes | paru -Sccd
 
 #RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
 #RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'
@@ -116,7 +119,7 @@ RUN runuser -u aur -- yes | paru -Sccd
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur
 
 # Install some last packages like a secondary desktop
-RUN install-packages-build tde-meta
+RUN install-packages-build tde-tdebase
 
 RUN yes | pacman -Scc
 
