@@ -17,7 +17,7 @@ ARG DESKTOP=nogui
 RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
 
 # Install hyprland desktop, wezterm terminal and ly login
-RUN install-packages-build hyprland wezterm ly; systemctl enable ly.service
+RUN install-packages-build hyprland wezterm kitty ly; systemctl enable ly.service
 
 # Install nemo file manager and it's extensions
 RUN install-packages-build nemo nemo-terminal nemo-preview nemo-pastebin nemo-image-converter nemo-fileroller nemo-emblems nemo-audio-tab ffmpegthumbnailer
@@ -46,7 +46,7 @@ RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 RUN install-packages-build steam firefox ladybird-git
 
 # Install extra CLI packages that I use
-RUN install-packages-build rclone fastfetch cava zip unzip cmus btop mpd 
+RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd 
 
 # Install optional dependencies that I use
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
@@ -96,6 +96,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm bulky; \
     runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
+    runuser -u aur -- paru -S --noconfirm xava; \
     runuser -u aur -- paru -S --noconfirm hyprshade
 
 #RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
