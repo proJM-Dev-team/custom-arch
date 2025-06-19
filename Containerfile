@@ -20,7 +20,7 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 RUN install-packages-build hyprland wezterm kitty ly; systemctl enable ly.service
 
 # Install nemo file manager and it's extensions
-RUN install-packages-build nemo nemo-terminal nemo-preview nemo-pastebin nemo-image-converter nemo-fileroller nemo-emblems nemo-audio-tab ffmpegthumbnailer
+RUN install-packages-build nemo nemo-terminal nemo-preview nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer
 
 # Fonts for emoji, nerd and normal
 RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-extra
@@ -31,7 +31,7 @@ RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji n
 RUN install-packages-build hyprpicker swww hyprpolkitagent
 
 # Some other utilities that hyprland will use
-RUN install-packages-build playerctl brightnessctl hyprshot swaync
+RUN install-packages-build playerctl brightnessctl satty
 
 # Installing dependencies for hyprpm and others
 RUN install-packages-build cmake meson cpio pkg-config
@@ -90,14 +90,22 @@ RUN rm -rf /tmp_build
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm freetube; \
-    runuser -u aur -- paru -S --noconfirm ashell; \
     runuser -u aur -- paru -S --noconfirm cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm bulky; \
-    runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git; \
-    runuser -u aur -- paru -S --noconfirm xava-git; \
+    runuser -u aur -- paru -S --noconfirm gruvbox-gtk-theme-git
+
+
+# Installing all hyprland related packages
+RUN runuser -u aur -- paru -S --noconfirm xava-git; \
+    runuser -u aur -- paru -S --noconfirm eww; \
+    runuser -u aur -- paru -S --noconfirm wluma; \
+    runuser -u aur -- paru -S --noconfirm pyprland
+    runuser -u aur -- paru -S --noconfirm hyprfreeze; \
+    runuser -u aur -- paru -S --noconfirm hyprnotify; \
     runuser -u aur -- paru -S --noconfirm hyprshade
+    runuser -u aur -- paru -S --noconfirm syshud
 
 #RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
 #RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'

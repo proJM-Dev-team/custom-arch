@@ -3,7 +3,7 @@
 [general]
 
 # Accepts only non-negative values.
-; framerate = 170
+framerate = 170
 
 # Keep the application in sync with the monitor to prevent tearing
 # It's generally recommended to keep it on, as different framerates may lead to
@@ -24,8 +24,8 @@ vsync = 1
 [window]
 
 # Window width and height (in pixels)
- width = 1920
- height = 90
+width = 1920
+; height = 300
 
 # Fullscreen toggle
 ; fullscreen = false
@@ -34,7 +34,7 @@ vsync = 1
 ; border = false
 
 # Window transparency toggle (your system must support transparent windows)
-transparency = true
+; transparency = true
 
 # Keeps the window under any other
 keep_below = true
@@ -51,13 +51,13 @@ alignment = 'top'
 # FXP. if alignment is set to right and x_padding is 20,
 # it will move the window left 20 pixels and so on for every direction
 ; x_padding = 0
-y_padding = 65
+; y_padding = 0
 
 # This option removes the ability to interact with the window
-; interactable = false
+; interactable = true
 
 # Create an taskbar icon
-; taskbar_icon = false
+; taskbar_icon = true
 
 # Do or don't hold on to an viewport size specified by width and height
 #
@@ -85,7 +85,7 @@ y_padding = 65
 # This allows XAVA to restart when the display settings are changed
 # As this can cause constant reloading (https://github.com/nikp123/xava/issues/20)
 # it is left off by default (X11 only)
- reload_on_display_configure = true
+; reload_on_display_configure = false
 
 # This option lets you choose a specific monitor that XAVA should occupy
 # The name of the monitor is exactly the same as that of in XRandr
@@ -116,13 +116,11 @@ y_padding = 65
 #  - window borders (be it client-side or server-side)
 #  - fullscreen mode
 #  - non-transparent windows (just use background_opacity instead lol)
-#  - any kind of GPU acceleration
-#  - window positioning logic
 #  - taskbar icon
 #
 # Also in XDG, XAVA may crash when resizing the window due to buffer
 # related issues (If this bothers you, an issue or PR would be appreciated)
-; background_layer = true
+background_layer = true
 
 # When background_layer is enabled, this options offers you to select
 # which monitor XAVA should occupy (examples: eDP-1, HDMI-A-1...)
@@ -141,7 +139,7 @@ y_padding = 65
 # order. Behaves exactly like Cairo modules do.
 # Refer to the README for further details.
   module_1 = bars
-;  module_2 = stars
+; module_2 = stars
 ; ...
 
 # Specify which post-render shader the visualizer will uses
@@ -199,9 +197,11 @@ y_padding = 65
 # For wasapi 'source', specify 'loopback' to capture audio from the system or
 # anything else to capture from an input device, such as a microphone.
 #
-# For pipewire, the 'source' parameter is ignored and instead the visualizer is
-# supposed to be configured using an external tool, such as 'pavucontrol' (works
-# on PipeWire too, trust me).
+# For pipewire, it will try connecting to record system audio output (might not work)
+# However, if you set the 'source' parameter manually it will try targetting that
+# specific applications audio output.
+# Example: If you use Supersonic, you'd put source = 'supersonic'
+# To find out your applications name use Helvum or `pw-cli list-objects`
 #
 # You can also specify 'list' as the source to portaudio to list all available
 # audio devices
@@ -249,9 +249,9 @@ y_padding = 65
 # opengl or cairo - the visualizer will figure out the rest.
 #
 # In case you still need to fiddle with your backend (possible) modes,
-# they are the following:opengl, x11_opengl, x11_cairo, wayland_opengl, wayland_cairo,
+# they are the following: x11_opengl, x11_cairo, wayland_opengl, wayland_cairo,
 #   win_opengl, win_cairo, sdl2_opengl and the "unsupported" ncurses mode
- method = wayland_opengl
+method = wayland_opengl
 
 # Visual channels. Can be 'stereo' or 'mono'.
 # 'stereo' mirrors both channels with low frequencies in center.
@@ -270,20 +270,20 @@ y_padding = 65
 #  Xrdb
 #  - Under Windows 'default' uses your system accent color
 #  - And on any other 'default' is just black and cyan (the default colorscheme)
- background = default
- foreground = '#5e81ac'
+; background = default
+; foreground = default
 
 # This adjusts the opacity of the bars (must have transparency for it to work)
- foreground_opacity = 0.6
+; foreground_opacity = 1.0
 
 # And this does the same but for the background (under the same condition as above)
- background_opacity = 0.0
+; background_opacity = 0.0
 
 # Gradient mode, only hex defined colors are supported, background must also be
 # defined in hex or remain commented out.
 # To enable gradients, just change gradient_count to the number of colors you
 # have specified (0 = disabled)
- gradient_count = 0
+; gradient_count = 0
 ; gradient_color_1 = '#0099ff'
 ; gradient_color_2 = '#ff3399'
 
