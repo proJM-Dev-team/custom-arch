@@ -100,7 +100,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 # Installing all hyprland related packages
 RUN runuser -u aur -- paru -S --noconfirm xava-git; \
     runuser -u aur -- paru -S --noconfirm eww; \
-    runuser -u aur -- paru -S --noconfirm wluma; \
+    runuser -u aur -- paru -S --noconfirm pscircle; \
     runuser -u aur -- paru -S --noconfirm pyprland; \
     runuser -u aur -- paru -S --noconfirm hyprfreeze; \
     runuser -u aur -- paru -S --noconfirm hyprnotify; \

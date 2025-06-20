@@ -14,8 +14,8 @@
 
 (defwindow powermenu
   :monitor 0 ;; wayland users may need this
-  :stacking "fg"
-  :windowtype "normal"
+  :stacking "bg"
+  :windowtype "desktop"
   :wm-ignore true
   :geometry (geometry :width "100%" :height "100%")
   (powermenu_layout))
@@ -35,21 +35,21 @@
       (_sundial)
       (_battery :status {EWW_BATTERY.BAT0.status}
                 :battery {EWW_BATTERY.BAT0.capacity}
-                :charge "" :one "" :two "" :three "" :four ""
-                :five "" :six "" :seven "")
-      (_network :strength net :offline "" :excellent "" :good ""
-                :okay "" :slow "")
+                :charge "󱐋" :one "" :two "" :three "" :four ""
+                :five "" :six "" :seven "")
+      (_network :strength net :offline "󰲜" :excellent "󰣺" :good "󰣸"
+                :okay "󰣶" :slow "󰣴")
       (label :text "|" :class "sep")
-      (button :onclick "eww close powermenu" :class "close-btn" ""))
+      (button :onclick "eww close powermenu" :class "close-btn" ""))
     (box :space-evenly false :hexpand true :vexpand true
       (box :spacing 15 :class "tm-box" :space-evenly false
             :valign "end" :halign "start"
-        (label :text "")
+        (label :text "")
         (label :text "${time.hour}  ${time.min}"))
       (_buttons :shutdown "poweroff" :reboot "reboot"
                 :logout "loginctl kill-session self"
-                :shutdown_icon "" :reboot_icon ""
-                :logout_icon ""))))
+                :shutdown_icon "󰐥" :reboot_icon ""
+                :logout_icon "󰈆"))))
 
 (defwidget _battery [battery status one two three
                     four five six seven charge]
