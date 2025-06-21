@@ -19,11 +19,11 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 # Install hyprland desktop, wezterm terminal and ly login
 RUN install-packages-build hyprland wezterm kitty ly; systemctl enable ly.service
 
-# Install nemo file manager and it's extensions
+# Install nemo file manager and its extensions
 RUN install-packages-build nemo nemo-terminal nemo-preview nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer
 
-# Fonts for emoji, nerd and normal
-RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-extra
+# Install related theme packages
+RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-extra kvantum
 
 # If icons fail we can use the gruvbox-plus-icon-theme-git AUR package
 
@@ -43,10 +43,10 @@ RUN install-packages-build podman podman-compose
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
 # Install extra GUI packages that I use
-RUN install-packages-build steam firefox ladybird-git
+RUN install-packages-build steam firefox ladybird-git ungoogled-chromium-bin
 
 # Install extra CLI packages that I use
-RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd 
+RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd cava 
 
 # Install optional dependencies that I use
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
@@ -134,6 +134,12 @@ RUN install-packages-build tde-tdebase
 
 RUN yes | pacman -Scc
 
-# Copy the configs to be created when a new user is made
+# Copy the user configs to be created when a new user is made
 RUN mkdir /etc/skel/.config
 COPY .config/ /etc/skel/.config
+
+# Copy GTK theme to /usr/share/themes
+COPY .themes/Grubox-Dark /usr/share/themes
+
+# Copy the system configs to etc
+COPY /etc /etc
