@@ -23,7 +23,8 @@ mkfifo $pipe
 config_file="$HOME/.config/cava/config"
 echo "
 [general]
-bars = 12
+bars = 232
+bar_spacing = 0
 [output]
 method = raw
 raw_target = $pipe

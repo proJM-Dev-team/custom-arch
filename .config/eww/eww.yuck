@@ -127,8 +127,11 @@
 )
 
 (defwidget cava []
-  (label :vexpand "false" :hexpand "false" :space-evenly "false"
-    :class "cavabar"
-    :text cava
+  (transform :class "trans" :vexpand "false" :hexpand "false" :space-evenly "false"
+    :rotate 180
+    (label :vexpand "false" :hexpand "false" :space-evenly "false"
+      :class "cavabar"
+      :text cava
+    )
   )
 )

@@ -23,7 +23,7 @@ RUN install-packages-build hyprland wezterm kitty ly; systemctl enable ly.servic
 RUN install-packages-build nemo nemo-terminal nemo-preview nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer
 
 # Install related theme packages
-RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-extra kvantum
+RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-extra kvantum nwg-look
 
 # If icons fail we can use the gruvbox-plus-icon-theme-git AUR package
 
@@ -98,8 +98,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 
 
 # Installing all hyprland related packages
-RUN runuser -u aur -- paru -S --noconfirm xava-git; \
-    runuser -u aur -- paru -S --noconfirm eww; \
+RUN runuser -u aur -- paru -S --noconfirm eww; \
     runuser -u aur -- paru -S --noconfirm pscircle; \
     runuser -u aur -- paru -S --noconfirm pyprland; \
     runuser -u aur -- paru -S --noconfirm hyprfreeze; \
