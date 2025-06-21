@@ -135,11 +135,11 @@ RUN install-packages-build tde-tdebase
 RUN yes | pacman -Scc
 
 # Copy the user configs to be created when a new user is made
-RUN mkdir /etc/skel/.config
-COPY .config/ /etc/skel/.config
+RUN mkdir /etc/skel/.config/
+COPY .config/ /etc/skel/.config/
 
 # Copy GTK theme to /usr/share/themes
-COPY .themes/Grubox-Dark /usr/share/themes
+COPY .themes/Gruvbox-Dark/ /usr/share/themes/
 
 # Copy the system configs to etc
-COPY /etc /etc
+COPY etc/ /etc/
