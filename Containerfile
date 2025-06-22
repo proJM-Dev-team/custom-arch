@@ -107,7 +107,6 @@ RUN rm -rf /tmp_build
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm popsicle; \
-    runuser -u aur -- paru -S --noconfirm lact-git; \
     runuser -u aur -- paru -S --noconfirm halloy-bin; \
     runuser -u aur -- paru -S --noconfirm cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
