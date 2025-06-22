@@ -118,7 +118,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 
 # Installing all hyprland related packages
 RUN runuser -u aur -- paru -S --noconfirm eww; \
-    runuser -u aur -- paru -S --noconfirm walker-bin
+    runuser -u aur -- paru -S --noconfirm walker-bin; \
     runuser -u aur -- paru -S --noconfirm pscircle; \
     runuser -u aur -- paru -S --noconfirm pyprland; \
     runuser -u aur -- paru -S --noconfirm hyprfreeze; \
