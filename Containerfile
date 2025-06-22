@@ -16,6 +16,9 @@ ARG DESKTOP=nogui
 # Install the low-level multimedia framework pipewire
 RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
 
+# Install zsh with some packages that extend the functionality 
+RUN install-packages-build zsh zsh-autocomplete zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+
 # Install hyprland desktop, wezterm terminal and ly login
 RUN install-packages-build hyprland wezterm kitty ly; systemctl enable ly.service
 
@@ -36,14 +39,28 @@ RUN install-packages-build playerctl brightnessctl satty
 # Installing dependencies for hyprpm and others
 RUN install-packages-build cmake meson cpio pkg-config
 
-# Install podman and the compose script for winapps and other tasks 
-RUN install-packages-build podman podman-compose
+# Install podman and the compose script for winapps and other tasks, also flatpak for untrusted software
+RUN install-packages-build podman podman-compose flatpak
 
 # Install dependencies for winapps
 RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 
+# Install some software that we don't trust 100% (Includes proprietary parts)
+# These will be installed through flatpak but some software is installed because it works better as a flatpak
+
+# Let's install all the web browsers first
+RUN flatpak install org.mozilla.firefox io.github.ungoogled_software.ungoogled_chromium org.torproject.torbrowser-launcher
+
+# Now all the game related flatpaks
+RUN flatpak install com.valvesoftware.Steam org.prismlauncher.PrismLauncher
+
+# And now our other flatpaks
+RUN flatpak install me.amankhanna.opendeck 
+RUN flatpak install com.obsproject.Studio
+RUN flatpak install io.freetubeapp.FreeTube
+
 # Install extra GUI packages that I use
-RUN install-packages-build steam firefox ladybird-git ungoogled-chromium-bin
+RUN install-packages-build ladybird-git
 
 # Install extra CLI packages that I use
 RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd cava 
@@ -70,7 +87,7 @@ COPY pkgbuilds/ /tmp_build/pkgbuilds/
 RUN chown -R aur:aur /tmp_build/pkgbuilds/
     
 # Compile the libadapta package with a PKGBUILD
-RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm
+#RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm
     
 RUN runuser -u aur -- env -C /tmp_build mkdir scripts
 COPY scripts/ /tmp_build/scripts/
@@ -89,7 +106,9 @@ RUN rm -rf /tmp_build
 # Some packages will be in the chaotic AUR but I'll keep them here
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
-    runuser -u aur -- paru -S --noconfirm freetube; \
+    runuser -u aur -- paru -S --noconfirm popsicle; \
+    runuser -u aur -- paru -S --noconfirm lact-git; \
+    runuser -u aur -- paru -S --noconfirm halloy-bin; \
     runuser -u aur -- paru -S --noconfirm cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
@@ -99,6 +118,7 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 
 # Installing all hyprland related packages
 RUN runuser -u aur -- paru -S --noconfirm eww; \
+    runuser -u aur -- paru -S --noconfirm walker-bin
     runuser -u aur -- paru -S --noconfirm pscircle; \
     runuser -u aur -- paru -S --noconfirm pyprland; \
     runuser -u aur -- paru -S --noconfirm hyprfreeze; \
@@ -138,7 +158,7 @@ RUN mkdir /etc/skel/.config/
 COPY .config/ /etc/skel/.config/
 
 # Copy GTK theme to /usr/share/themes
-COPY .themes/Gruvbox-Dark/ /usr/share/themes/
+COPY .themes/Gruvbox-Dark-Custom/ /usr/share/themes/
 
 # Copy the system configs to etc
 COPY etc/ /etc/
