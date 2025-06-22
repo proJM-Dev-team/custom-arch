@@ -49,15 +49,15 @@ RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 # These will be installed through flatpak but some software is installed because it works better as a flatpak
 
 # Let's install all the web browsers first
-RUN flatpak install org.mozilla.firefox io.github.ungoogled_software.ungoogled_chromium org.torproject.torbrowser-launcher
+RUN flatpak install -y org.mozilla.firefox io.github.ungoogled_software.ungoogled_chromium org.torproject.torbrowser-launcher
 
 # Now all the game related flatpaks
-RUN flatpak install com.valvesoftware.Steam org.prismlauncher.PrismLauncher
+RUN flatpak install -y com.valvesoftware.Steam org.prismlauncher.PrismLauncher
 
 # And now our other flatpaks
-RUN flatpak install me.amankhanna.opendeck 
-RUN flatpak install com.obsproject.Studio
-RUN flatpak install io.freetubeapp.FreeTube
+RUN flatpak install -y me.amankhanna.opendeck 
+RUN flatpak install -y com.obsproject.Studio
+RUN flatpak install -y io.freetubeapp.FreeTube
 
 # Install extra GUI packages that I use
 RUN install-packages-build ladybird-git
