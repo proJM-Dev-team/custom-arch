@@ -43,21 +43,7 @@ RUN install-packages-build cmake meson cpio pkg-config
 RUN install-packages-build podman podman-compose flatpak
 
 # Install dependencies for winapps
-RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
-
-# Install some software that we don't trust 100% (Includes proprietary parts)
-# These will be installed through flatpak but some software is installed because it works better as a flatpak
-
-# Let's install all the web browsers first
-RUN flatpak install -y org.mozilla.firefox io.github.ungoogled_software.ungoogled_chromium org.torproject.torbrowser-launcher
-
-# Now all the game related flatpaks
-RUN flatpak install -y com.valvesoftware.Steam org.prismlauncher.PrismLauncher
-
-# And now our other flatpaks
-RUN flatpak install -y me.amankhanna.opendeck 
-RUN flatpak install -y com.obsproject.Studio
-RUN flatpak install -y io.freetubeapp.FreeTube
+RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat virt-manager
 
 # Install extra GUI packages that I use
 RUN install-packages-build ladybird-git
@@ -125,21 +111,6 @@ RUN runuser -u aur -- paru -S --noconfirm eww; \
     runuser -u aur -- paru -S --noconfirm hyprshade; \
     runuser -u aur -- paru -S --noconfirm syshud
 
-#RUN runuser -u aur -- export XDG_CURRENT_DESKTOP='Hyprland'
-#RUN runuser -u aur -- export XDG_SESSION_TYPE='wayland'
-#RUN runuser -u aur -- export XDG_SESSION_DESKTOP='Hyprland'
-
-#RUN runuser -u aur -- hyprpm add https://github.com/virtcode/hypr-dynamic-cursors && \
-#    runuser -u aur -- hyprpm enable dynamic-cursors && \
-#    runuser -u aur -- hyprpm add https://github.com/KZDKM/Hyprspace && \
-#    runuser -u aur -- hyprpm enable Hyprspace && \
-#    runuser -u aur -- hyprpm add https://github.com/ItsDrike/hyprland-dwindle-autogroup && \
-#    runuser -u aur -- hyprpm enable dwindle-autogroup && \ 
-#    runuser -u aur -- hyprpm add https://github.com/Duckonaut/split-monitor-workspaces && \
-#    runuser -u aur -- hyprpm enable split-monitor-workspaces && \
-#    runuser -u aur -- hyprpm add https://gitlab.com/magus/hyprslidr && \
-#    runuser -u aur -- hyprpm enable hyprslidr
-
 # Unsure about these plugins being used, I will need to test them 
     #runuser -u aur -- hyprpm add https://github.com/hyprwm/hyprland-plugins && \
     #runuser -u aur -- hyprpm enable hyprscrolling
@@ -161,3 +132,6 @@ COPY .themes/Gruvbox-Dark-Custom/ /usr/share/themes/
 
 # Copy the system configs to etc
 COPY etc/ /etc/
+
+# Copy some scripts opt
+COPY opt/ /opt/

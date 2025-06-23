@@ -1,0 +1,9 @@
+[Unit]
+Description=A shell script on first boot to configure some extra things
+ConditionFirstBoot=yes
+
+[Service]
+ExecStart=/opt/first-boot.sh
+
+[Install]
+WantedBy=multi-user.target
