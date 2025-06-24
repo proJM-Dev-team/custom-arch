@@ -43,7 +43,7 @@ RUN install-packages-build cmake meson cpio pkg-config
 RUN install-packages-build podman podman-compose flatpak
 
 # Install dependencies for winapps
-RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat virt-manager; systemctl enable libvirtd.socket
+RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat virt-manager qemu-full; systemctl enable libvirtd.socket
 
 # Install extra GUI packages that I use
 RUN install-packages-build ladybird-git
