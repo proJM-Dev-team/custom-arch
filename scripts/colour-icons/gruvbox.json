@@ -4,7 +4,11 @@
     "desc": "A bright theme with pastel 'retro groove' colors, high contrast and easy on the eyes.",
     "smooth": true,
     "colors": [
+        "#fabd2f",
         "#d79921",
-        "#fabd2f"
+        "#3C3C3C",
+        "#928374",
+        "#a89984",
+        "#ebdbb2"
     ]
 }
