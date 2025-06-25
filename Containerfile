@@ -55,7 +55,7 @@ RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd cava
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
 
 # Install all other packages that I use
-RUN install-packages-build mangohud gamescope distrobox matrix2051-git
+RUN install-packages-build mangohud gamescope distrobox
 
 # Install some packages that are required for the AUR packages and scripts
 RUN install-packages-build glib2-devel lshw python-pip
@@ -94,6 +94,7 @@ RUN rm -rf /tmp_build
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm popsicle; \
     runuser -u aur -- paru -S --noconfirm halloy-bin; \
+    runuser -u aur -- paru -S --noconfirm matrix2051-git
     runuser -u aur -- paru -S --noconfirm cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
