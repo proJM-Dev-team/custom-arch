@@ -94,7 +94,7 @@ RUN rm -rf /tmp_build
 RUN runuser -u aur -- paru -S --noconfirm downgrade; \
     runuser -u aur -- paru -S --noconfirm popsicle; \
     runuser -u aur -- paru -S --noconfirm halloy-bin; \
-    runuser -u aur -- paru -S --noconfirm matrix2051-git
+    runuser -u aur -- paru -S --noconfirm matrix2051-git; \
     runuser -u aur -- paru -S --noconfirm cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm celluloid-linuxmint; \
