@@ -49,13 +49,13 @@ RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat
 RUN install-packages-build ladybird-git
 
 # Install extra CLI packages that I use
-RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd cava 
+RUN install-packages-build rclone fastfetch zip unzip cmus btop mpd cava
 
 # Install optional dependencies that I use
 RUN install-packages-build chafa libxnvctrl bat yt-dlp
 
 # Install all other packages that I use
-RUN install-packages-build mangohud gamescope distrobox
+RUN install-packages-build mangohud gamescope distrobox matrix2051-git
 
 # Install some packages that are required for the AUR packages and scripts
 RUN install-packages-build glib2-devel lshw python-pip
@@ -104,7 +104,6 @@ RUN runuser -u aur -- paru -S --noconfirm downgrade; \
 # Installing all hyprland related packages
 RUN runuser -u aur -- paru -S --noconfirm eww; \
     runuser -u aur -- paru -S --noconfirm walker-bin; \
-    runuser -u aur -- paru -S --noconfirm pscircle; \
     runuser -u aur -- paru -S --noconfirm pyprland; \
     runuser -u aur -- paru -S --noconfirm hyprfreeze; \
     runuser -u aur -- paru -S --noconfirm hyprnotify; \
