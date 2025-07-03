@@ -12,22 +12,24 @@ flatpak install -y org.mozilla.firefox io.github.ungoogled_software.ungoogled_ch
 echo "Now we will install the game related flatpaks"
 
 # Now all the game related flatpaks
-flatpak install -y com.valvesoftware.Steam org.prismlauncher.PrismLauncher
+flatpak install -y org.prismlauncher.PrismLauncher io.github.hmlendea.geforcenow-electron
 
 echo "Last the few other flatpaks"
 
 # And now our other flatpaks
-flatpak install -y me.amankhanna.opendeck 
-flatpak install -y com.obsproject.Studio
-flatpak install -y io.freetubeapp.FreeTube
+flatpak install -y me.amankhanna.opendeck com.obsproject.Studio io.freetubeapp.FreeTube org.squidowl.halloy im.nheko.Nheko com.github.tchx84.Flatseal
 
-echo "Git clone winapps and go through part of the install"
+echo "We are going to install GeForceNOW"
 
-git clone https://github.com/winapps-org/winapps.git
+curl -o /tmp/GeForceNOWSetup.bin "https://international.download.nvidia.com/GFNLinux/GeForceNOWSetup.bin"
 
-echo "Add the uri qemu:/// to the bashrc"
+echo "Please allow execution of GeForceNOWSetup.bin"
 
-echo 'export LIBVIRT_DEFAULT_URI="qemu:///system"' >> ~/.bashrc
+sudo chmod +x /tmp/GeForceNOWSetup.bin
+
+echo "We will now install GeForceNOW"
+
+/tmp/GeForceNOWSetup.bin
 
 echo "Add the user to the kvm and libvirt group"
 
@@ -46,8 +48,8 @@ hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
 hyprpm enable dynamic-cursors 
 hyprpm add https://github.com/Duckonaut/split-monitor-workspaces 
 hyprpm enable split-monitor-workspaces 
-hyprpm add https://gitlab.com/magus/hyprslidr 
-hyprpm enable hyprslidr
+hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm enable hyprscrolling
 
 echo "Reload hyprpm then exit the script"
 

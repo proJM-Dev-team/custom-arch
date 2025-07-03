@@ -156,3 +156,27 @@ where `<IMAGE_NAME>` is the name of the image you want to rebase to. For example
 ```sh
 sudo system rebase docker://ghcr.io/commonarch/workstation-nvidia-gnome:main
 ```
+---
+
+# Extra notes on how to use the Containerfile
+
+### This comes from a matrix user explaining a few things
+
+For docker scripts that would depend on how you want layers `RUN foo && bar` is one layer wher as `RUN foo ; bar` may make two layers.
+
+If you feel the need to use `;` in docker script i would suspect its a more clear intent to use a new RUN line
+
+Sometimes you want a layer with && say your making a container and you need some dependancy foo and you make 4 steps
+
+`RUN dl`
+
+`RUN extract`
+
+`RUN install`
+
+`RUN cleanup_dl`
+
+That is 4 layers in your container i.e 4 sets of deltas where really you only care about the delta between the step before this you DL and after your cleanup_dl step In that case if you use
+`RUN dl && extract && install && cleanup_dl`
+
+Would make a smaller final image as those delta for this step would only be that the installed files were added to the image

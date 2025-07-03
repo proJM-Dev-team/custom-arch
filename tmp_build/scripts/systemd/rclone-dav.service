@@ -1,0 +1,10 @@
+[Unit]
+Description=Use rclone and webDAV to get network storage on /network
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+ExecStart=/usr/shae/bin/rclone mount --vfs-cache-mode writes --dir-cache-time 5s megaserver-dav: /network
+
+[Install]
+WantedBy=multi-user.target

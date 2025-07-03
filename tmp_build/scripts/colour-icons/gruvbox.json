@@ -1,0 +1,17 @@
+{
+    "type": "palette",
+    "name": "Gruvbox Dark",
+    "desc": "A bright theme with pastel 'retro groove' colors, high contrast and easy on the eyes.",
+    "smooth": true,
+    "colors": [
+        "#fbc851",
+        "#fabd2f",
+        "#e09e05",
+        "#3C3C3C",
+        "#737373",
+        "#a6a6a6",
+        "#928374",
+        "#a89984",
+        "#ebdbb2"
+    ]
+}
