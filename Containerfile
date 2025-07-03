@@ -33,7 +33,7 @@ RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji n
 RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
 
 # Install dependencies for winapps
-RUN install-packages-build dialog freerdp git libnotify gnu-netcat dnsmasq qemu-full virt-manager; systemctl enable libvirtd.socket
+RUN install-packages-build dialog freerdp gnu-netcat dnsmasq qemu-full virt-manager; systemctl enable libvirtd.socket
 
 # Install extra CLI and GUI packages that I use
 RUN install-packages-build steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava
@@ -51,7 +51,7 @@ RUN install-packages-build glib2-devel lshw python-pip
 RUN useradd -m -s /bin/bash aur && \
     echo "aur ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/aur && \
     mkdir -p /tmp_build && chown -R aur /tmp_build && \
-    install-packages-build git base-devel; \
+    install-packages-build base-devel; \
     runuser -u aur -- env -C /tmp_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_build/paru-bin makepkg -si --noconfirm
 
@@ -98,7 +98,7 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
 
 # Install some last packages like a secondary desktop and clean package cache
-RUN install-packages-build tde-tdebase xorg-xrandr && pacman --noconfirm -Scc
+RUN install-packages-build tde-tdebase && pacman --noconfirm -Scc
 
 # Copy some scripts opt and the user config
 COPY opt/ /opt/
@@ -107,7 +107,7 @@ COPY opt/ /opt/
 COPY etc/ /etc/
 
 # Link the user configs to be created when a new user is made
-RUN ln -s /opt/config/dunst /etc/skel/.config/dunst \
+RUN ln -s /opt/config/dunst /etc/skel/.config/dunst && \
     ln -s /opt/config/eww /etc/skel/.config/eww && \
     ln -s /opt/config/Kvantum /etc/skel/.config/Kvantum && \
     ln -s /opt/config/wallpapers /etc/skel/.config/wallpapers && \
