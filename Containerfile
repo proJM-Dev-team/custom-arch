@@ -91,8 +91,7 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprfreeze; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprnotify; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprshade; \
-    runuser -u aur -- paru -S --noconfirm --removemake syshud && \
-    runuser -u aur -- paru -Qdtq
+    runuser -u aur -- paru -S --noconfirm --removemake syshud
 
 # Delete all things related to the aur user 
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
