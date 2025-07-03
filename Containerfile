@@ -56,7 +56,7 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_build/paru-bin makepkg -si --noconfirm
 
 RUN runuser -u aur -- env -C /tmp_build mkdir pkgbuilds
-COPY --chown=1000:1000 /tmp_buildpkgbuilds/ /tmp_build/pkgbuilds/
+COPY --chown=1000:1000 /tmp_build/pkgbuilds/ /tmp_build/pkgbuilds/
     
 # Compile the libadapta package with a PKGBUILD
 #RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm

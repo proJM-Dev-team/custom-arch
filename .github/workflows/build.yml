@@ -40,7 +40,6 @@ jobs:
           dotnet: true
           haskell: true
           large-packages: true
-          swap-storage: true
       
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
