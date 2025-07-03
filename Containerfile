@@ -33,7 +33,7 @@ RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji n
 RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
 
 # Install dependencies for winapps
-RUN install-packages-build curl dialog freerdp git iproute2 libnotify gnu-netcat dnsmasq qemu-full virt-manager; systemctl enable libvirtd.socket
+RUN install-packages-build dialog freerdp git libnotify gnu-netcat dnsmasq qemu-full virt-manager; systemctl enable libvirtd.socket
 
 # Install extra CLI and GUI packages that I use
 RUN install-packages-build steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava
@@ -83,23 +83,22 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake libadwaita-without-adwait
     runuser -u aur -- paru -S --noconfirm --removemake gruvbox-gtk-theme-git
 
 
-# Installing all hyprland related packages
+# Installing all hyprland related packages 
+# Then remove packages that are not used anymore
 RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
     runuser -u aur -- paru -S --noconfirm --removemake walker-bin; \
     runuser -u aur -- paru -S --noconfirm --removemake pyprland; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprfreeze; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprnotify; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprshade; \
-    runuser -u aur -- paru -S --noconfirm --removemake syshud
+    runuser -u aur -- paru -S --noconfirm --removemake syshud && \
+    runuser -u aur -- paru -Qdtq | paru --noconfirm -Rns - 
 
 # Delete all things related to the aur user 
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
 
-# Install some last packages like a secondary desktop
-RUN install-packages-build tde-tdebase xorg-xrandr
-
-RUN pacman -Qdtq | pacman --noconfirm -Rns - && \
-    pacman --noconfirm -Scc
+# Install some last packages like a secondary desktop and clean package cache
+RUN install-packages-build tde-tdebase xorg-xrandr && pacman --noconfirm -Scc
 
 # Copy some scripts opt and the user config
 COPY opt/ /opt/
