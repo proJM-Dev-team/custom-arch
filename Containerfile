@@ -27,7 +27,7 @@ RUN install-packages-build nemo nemo-terminal nemo-preview nemo-image-converter 
 
 # Install related theme packages
 # If icons fail we can use the gruvbox-plus-icon-theme-git AUR package
-RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-extra kvantum nwg-look
+RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum nwg-look
 
 # Packages and utilities that hyprland/hyprpm will use
 RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
@@ -42,7 +42,7 @@ RUN install-packages-build steam ladybird-git mintstick rclone fastfetch zip unz
 RUN install-packages-build podman podman-compose distrobox flatpak chafa libxnvctrl bat yt-dlp
 
 # Install all other packages that I use
-RUN install-packages-build mangohud gamescope tailscale fwupd; systemctl enable fwupd.service
+RUN install-packages-build mangohud tailscale fwupd; systemctl enable fwupd.service
 
 # Install some packages that are required for the AUR packages and scripts
 RUN install-packages-build glib2-devel lshw python-pip
@@ -91,13 +91,15 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprfreeze; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprnotify; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprshade; \
-    runuser -u aur -- paru -S --noconfirm --removemake syshud
+    runuser -u aur -- paru -S --noconfirm --removemake swayosd-git; \
+    systemctl enable --now swayosd-libinput-backend.service
 
 # Delete all things related to the aur user 
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
 
 # Install some last packages like a secondary desktop and clean package cache
-RUN install-packages-build tde-tdebase && pacman --noconfirm -Scc
+RUN install-packages-build tde-tdebase; \
+    yes | pacman -Scc
 
 # Copy some scripts opt and the user config
 COPY opt/ /opt/
