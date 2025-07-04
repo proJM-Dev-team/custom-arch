@@ -92,7 +92,7 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprnotify; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprshade; \
     runuser -u aur -- paru -S --noconfirm --removemake swayosd-git; \
-    systemctl enable --now swayosd-libinput-backend.service
+    systemctl enable swayosd-libinput-backend.service
 
 # Delete all things related to the aur user 
 RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
