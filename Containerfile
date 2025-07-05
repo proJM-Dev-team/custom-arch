@@ -119,4 +119,5 @@ RUN ln -s /opt/config/dunst /etc/skel/.config/dunst && \
     ln -s /opt/config/hypr/execs.conf /etc/skel/.config/hypr/execs.conf && \
     ln -s /opt/config/hypr/hyprland.conf /etc/skel/.config/hypr/hyprland.conf && \
     ln -s /opt/config/hypr/inputs.conf /etc/skel/.config/hypr/inputs.conf && \
+    ln -s /opt/config/hypr/plugins.conf /etc/skel/.config/hypr/plugins.conf && \
     ln -s /opt/config/hypr/pyprland.toml /etc/skel/.config/hypr/pyprland.toml

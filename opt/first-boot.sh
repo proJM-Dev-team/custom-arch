@@ -48,8 +48,6 @@ hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
 hyprpm enable dynamic-cursors 
 hyprpm add https://github.com/Duckonaut/split-monitor-workspaces 
 hyprpm enable split-monitor-workspaces 
-hyprpm add https://github.com/hyprwm/hyprland-plugins
-hyprpm enable hyprscrolling
 
 echo "Reload hyprpm then exit the script"
 
