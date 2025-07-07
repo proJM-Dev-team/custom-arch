@@ -8,8 +8,6 @@ ARG VARIANT=general
 #ARG CORE_BRANCH=main
 #ARG DESKTOP=nogui
 
-# Changes to the base container image go here.
-
 # IMPORTANT: Do NOT use `pacman -S` to install packages.
 # Instead, use install-packages-build, as demonstrated in the following examples:
 
@@ -20,20 +18,20 @@ RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse g
 RUN install-packages-build zsh zsh-autocomplete zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 
 # Install hyprland desktop, terminals and ly login
-RUN install-packages-build hyprland wezterm kitty ly; systemctl enable ly.service
+RUN install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk rio ly; systemctl enable ly.service
 
 # Install nemo file manager and its extensions
-RUN install-packages-build nemo nemo-terminal nemo-preview nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer
+RUN install-packages-build nemo nemo-terminal nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer
 
 # Install related theme packages
 # If icons fail we can use the gruvbox-plus-icon-theme-git AUR package
-RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum nwg-look
+RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum kvantum-qt5 qt5ct qt6ct qt5-wayland qt6-wayland nwg-look
 
 # Packages and utilities that hyprland/hyprpm will use
 RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
 
 # Install dependencies for winapps
-RUN install-packages-build dialog freerdp gnu-netcat dnsmasq qemu-full virt-manager; systemctl enable libvirtd.socket
+RUN install-packages-build dialog freerdp gnu-netcat dnsmasq qemu-desktop virt-manager; systemctl enable libvirtd.socket
 
 # Install extra CLI and GUI packages that I use
 RUN install-packages-build steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava
@@ -75,6 +73,7 @@ RUN runuser -u aur -- env -C /tmp_build/scripts/colour-icons git clone 'https://
 # Some packages will be in the chaotic AUR but I'll keep them here
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm --removemake libadwaita-without-adwaita-git; \
+    runuser -u aur -- paru -S --noconfirm --removemake millennium; \
     runuser -u aur -- paru -S --noconfirm --removemake bulky; \
     runuser -u aur -- paru -S --noconfirm --removemake cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm --removemake file-roller-linuxmint; \
@@ -84,14 +83,11 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake libadwaita-without-adwait
 
 
 # Installing all hyprland related packages 
-# Then remove packages that are not used anymore
 RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
     runuser -u aur -- paru -S --noconfirm --removemake walker-bin; \
     runuser -u aur -- paru -S --noconfirm --removemake pyprland; \
-    runuser -u aur -- paru -S --noconfirm --removemake hyprfreeze; \
-    runuser -u aur -- paru -S --noconfirm --removemake hyprnotify; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprshade; \
-    runuser -u aur -- paru -S --noconfirm --removemake swayosd-git; \
+    runuser -u aur -- paru -S --noconfirm --removemake syshud; \
     systemctl enable swayosd-libinput-backend.service
 
 # Delete all things related to the aur user 
@@ -112,7 +108,7 @@ RUN ln -s /opt/config/dunst /etc/skel/.config/dunst && \
     ln -s /opt/config/eww /etc/skel/.config/eww && \
     ln -s /opt/config/Kvantum /etc/skel/.config/Kvantum && \
     ln -s /opt/config/wallpapers /etc/skel/.config/wallpapers && \
-    ln -s /opt/config/wezterm /etc/skel/.config/wezterm && \
+    ln -s /opt/config/rio /etc/skel/.config/rio && \
 # Since we allow a custom config as part of hyprland we link each file
     ln -s /opt/config/hypr/decor.conf /etc/skel/.config/hypr/decor.conf && \
     ln -s /opt/config/hypr/envs.conf /etc/skel/.config/hypr/envs.conf && \
