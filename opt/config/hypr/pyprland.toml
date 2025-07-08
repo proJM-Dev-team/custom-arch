@@ -3,8 +3,8 @@ plugins = ["scratchpads", "expose"]
 
 [scratchpads.term]
 animation = "fromTop"
-command = "rio --class rio-dropterm"
-class = "rio-dropterm"
+command = "kitty --class kitty-dropterm"
+class = "kitty-dropterm"
 size = "75% 60%"
 max_size = "1920px 100%"
 margin = 50
