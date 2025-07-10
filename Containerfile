@@ -14,8 +14,8 @@ ARG VARIANT=general
 # Install the low-level multimedia framework pipewire
 RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
 
-# Install zsh with some packages that extend the functionality 
-RUN install-packages-build zsh zsh-autocomplete zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+# Install zsh with some packages that extend the functionality and some required/optional dependencies for other packages 
+RUN install-packages-build zsh grml-zsh-config libqalculate chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip
 
 # Install hyprland desktop, terminals and ly login
 RUN install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk kitty ly; systemctl enable ly.service
@@ -28,22 +28,16 @@ RUN install-packages-build nemo nemo-terminal nemo-image-converter nemo-emblems 
 RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum kvantum-qt5 qt5ct qt6ct qt5-wayland qt6-wayland nwg-look libadwaita-without-adwaita-git
 
 # Packages and utilities that hyprland/hyprpm will use
-RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config --assume-installed libadwaita
+RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
 
-# Install dependencies for a windows virtual machine
-RUN install-packages-build qemu-desktop virt-manager; systemctl enable libvirtd.socket
+# Install sandboxing/containerization software
+RUN install-packages-build podman podman-compose distrobox flatpak qemu-desktop virt-manager; systemctl enable libvirtd.socket
 
 # Install extra CLI and GUI packages that I use
 RUN install-packages-build steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava
 
-# Install optional dependencies that I use along with other sandboxing/containerization software
-RUN install-packages-build podman podman-compose distrobox flatpak chafa libxnvctrl bat yt-dlp
-
 # Install all other packages that I use
 RUN install-packages-build mangohud tailscale fwupd; systemctl enable fwupd.service
-
-# Install some packages that are required for the AUR packages and scripts
-RUN install-packages-build glib2-devel lshw python-pip
 
 # Some AUR packages will need to be installed through paru
 RUN useradd -m -s /bin/bash aur && \
@@ -73,7 +67,6 @@ RUN runuser -u aur -- env -C /tmp_build/scripts/colour-icons git clone 'https://
 # Some packages will be in the chaotic AUR but I'll keep them here
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm --removemake bulky; \
-#    runuser -u aur -- paru -S --noconfirm --removemake millennium; \
     runuser -u aur -- paru -S --noconfirm --removemake cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm --removemake file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm --removemake celluloid-linuxmint; \
@@ -93,7 +86,7 @@ RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
 
 # Install some last packages like a secondary desktop and clean package cache
 RUN install-packages-build tde-tdebase; \
-    yes | pacman -Scc
+    yes | pacman -Scc && fastfetch
 
 # Copy some scripts opt and the user config
 COPY opt/ /opt/
