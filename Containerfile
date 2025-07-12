@@ -5,8 +5,6 @@ ARG DESKTOP=nogui
 FROM ghcr.io/projm-dev-team/system-base${SUFFIX}-${DESKTOP}:main
 
 ARG VARIANT=general
-#ARG CORE_BRANCH=main
-#ARG DESKTOP=nogui
 
 # IMPORTANT: Do NOT use `pacman -S` to install packages.
 # Instead, use install-packages-build, as demonstrated in the following examples:
@@ -15,7 +13,7 @@ ARG VARIANT=general
 RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
 
 # Install zsh with some packages that extend the functionality and some required/optional dependencies for other packages 
-RUN install-packages-build zsh grml-zsh-config libqalculate chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip
+RUN install-packages-build zsh grml-zsh-config chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip
 
 # Install hyprland desktop, terminals and ly login
 RUN install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk kitty ly; systemctl enable ly.service
@@ -28,7 +26,7 @@ RUN install-packages-build nemo nemo-terminal nemo-image-converter nemo-emblems 
 RUN install-packages-build ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum kvantum-qt5 qt5ct qt6ct qt5-wayland qt6-wayland nwg-look libadwaita-without-adwaita-git
 
 # Packages and utilities that hyprland/hyprpm will use
-RUN install-packages-build hyprpicker swww polkit-gnome playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
+RUN install-packages-build hyprpicker swww polkit-gnome rofi-wayland playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config
 
 # Install sandboxing/containerization software
 RUN install-packages-build podman podman-compose distrobox flatpak qemu-desktop virt-manager; systemctl enable libvirtd.socket
@@ -71,12 +69,12 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake bulky; \
     runuser -u aur -- paru -S --noconfirm --removemake file-roller-linuxmint; \
     runuser -u aur -- paru -S --noconfirm --removemake celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm --removemake cake-wallet-bin; \
-    runuser -u aur -- paru -S --noconfirm --removemake gruvbox-gtk-theme-git
+    runuser -u aur -- paru -S --noconfirm --removemake gruvbox-gtk-theme-git; \
+    runuser -u aur -- paru -S --noconfirm --removemake oh-my-posh-bin
 
 
 # Installing all hyprland related packages 
 RUN runuser -u aur -- paru -S --noconfirm --removemake eww; \
-    runuser -u aur -- paru -S --noconfirm --removemake walker-bin; \
     runuser -u aur -- paru -S --noconfirm --removemake pyprland; \
     runuser -u aur -- paru -S --noconfirm --removemake hyprshade; \
     runuser -u aur -- paru -S --noconfirm --removemake syshud
@@ -86,7 +84,7 @@ RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
 
 # Install some last packages like a secondary desktop and clean package cache
 RUN install-packages-build tde-tdebase; \
-    yes | pacman -Scc && fastfetch
+    yes | pacman -Scc
 
 # Copy some scripts opt and the user config
 COPY opt/ /opt/
@@ -97,6 +95,7 @@ COPY etc/ /etc/
 # Link the user configs to be created when a new user is made
 RUN ln -s /opt/config/dunst /etc/skel/.config/dunst && \
     ln -s /opt/config/eww /etc/skel/.config/eww && \
+    ln -s /opt/config/rofi /etc/skel/.config/rofi && \
     ln -s /opt/config/Kvantum /etc/skel/.config/Kvantum && \
     ln -s /opt/config/wallpapers /etc/skel/.config/wallpapers && \
     ln -s /opt/config/kitty /etc/skel/.config/kitty && \
