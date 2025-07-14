@@ -7,6 +7,21 @@
  * Rofi Version: 1.7.3
  **/
 
+/*****----- Color import -----*****/
+* {
+    background:     #282828FF;
+    background-alt: #353535FF;
+    foreground:     #EBDBB2FF;
+    selected:       #83A598FF;
+    active:         #B8BB26FF;
+    urgent:         #FB4934FF;
+}
+
+/*****----- Font import -----*****/
+* {
+    font: "jetbrains mono nerd font 10";
+}
+
 /*****----- Configuration -----*****/
 configuration {
 	modi:                       "drun,run,filebrowser";
@@ -20,9 +35,6 @@ configuration {
 }
 
 /*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
-
 * {
     border-colour:               var(selected);
     handle-colour:               var(selected);
@@ -53,10 +65,10 @@ configuration {
 window {
     /* properties for window widget */
     transparency:                "real";
-    location:                    center;
+    location:                    south;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       600px;
+    width:                       1200px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -123,7 +135,7 @@ entry {
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       8;
+    lines:                       4;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;

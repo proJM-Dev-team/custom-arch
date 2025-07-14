@@ -12,7 +12,7 @@ flatpak install -y org.mozilla.firefox io.github.ungoogled_software.ungoogled_ch
 echo "Now we will install the game related flatpaks"
 
 # Now all the game related flatpaks
-flatpak install -y org.prismlauncher.PrismLauncher io.github.hmlendea.geforcenow-electron
+flatpak install -y org.prismlauncher.PrismLauncher
 
 echo "Last the few other flatpaks"
 
