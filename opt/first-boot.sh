@@ -17,7 +17,7 @@ flatpak install -y org.prismlauncher.PrismLauncher
 echo "Last the few other flatpaks"
 
 # And now our other flatpaks
-flatpak install -y me.amankhanna.opendeck com.obsproject.Studio io.freetubeapp.FreeTube org.squidowl.halloy im.nheko.Nheko com.github.tchx84.Flatseal
+flatpak install -y org.gnome.NetworkDisplays me.amankhanna.opendeck com.obsproject.Studio io.freetubeapp.FreeTube org.squidowl.halloy im.nheko.Nheko com.github.tchx84.Flatseal
 
 echo "We are going to install GeForceNOW"
 

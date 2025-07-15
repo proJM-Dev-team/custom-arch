@@ -10,32 +10,35 @@ ARG VARIANT=general
 # Instead, use install-packages-build, as demonstrated in the following examples:
 
 # Install the low-level multimedia framework pipewire
-RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber \
+RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber && \
 
-# Install zsh with some packages that extend the functionality and some required/optional dependencies for other packages 
-zsh grml-zsh-config chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip \
+# Install zsh with some packages that extend the functionality  
+install-packages-build zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions zoxide fzf && \
+
+# Install some required/optional dependencies for other packages
+install-packages-build chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip && \
 
 # Install hyprland desktop, terminals and ly login
-hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk kitty ly \
+install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk kitty ly && \
 
 # Install nemo file manager and its extensions
-nemo nemo-terminal nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer \
+install-packages-build nemo nemo-terminal nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer && \
 
 # Install related theme packages
 # If icons fail we can use the gruvbox-plus-icon-theme-git AUR package
-ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum kvantum-qt5 qt5ct qt6ct qt5-wayland qt6-wayland nwg-look libadwaita-without-adwaita-git \
+install-packages-build ttf-jetbrains-mono-nerd noto-fonts-emoji kvantum kvantum-qt5 qt5ct qt6ct qt5-wayland qt6-wayland nwg-look libadwaita-without-adwaita-git && \
 
 # Packages and utilities that hyprland/hyprpm will use
-hyprpicker swww polkit-gnome rofi-wayland playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config \
+install-packages-build hyprpicker swww polkit-gnome rofi-wayland playerctl brightnessctl satty dunst grim cmake meson cpio pkg-config && \
 
 # Install sandboxing/containerization software
-podman podman-compose distrobox flatpak qemu-desktop virt-manager \
+install-packages-build podman podman-compose distrobox flatpak qemu-desktop virt-manager && \
 
 # Install extra CLI and GUI packages that I use
-steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava \
+install-packages-build steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava && \
 
 # Install all other packages that I use
-mangohud tailscale fwupd
+install-packages-build mangohud tailscale fwupd
 
 # Enable all the services/sockets which are required
 RUN systemctl enable ly.service fwupd.service libvirtd.socket
@@ -73,6 +76,7 @@ RUN runuser -u aur -- paru -S --noconfirm --removemake bulky; \
     runuser -u aur -- paru -S --noconfirm --removemake celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm --removemake cake-wallet-bin; \
     runuser -u aur -- paru -S --noconfirm --removemake gruvbox-gtk-theme-git; \
+    runuser -u aur -- paru -S --noconfirm --removemake fzf-tab-git; \
     runuser -u aur -- paru -S --noconfirm --removemake oh-my-posh-bin
 
 
