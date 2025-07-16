@@ -93,24 +93,5 @@ RUN userdel -rf aur; rm -rf /home/aur /etc/sudoers.d/aur /tmp_build;
 RUN install-packages-build tde-tdebase; \
     yes | pacman -Scc
 
-# Copy some scripts opt and the user config
-COPY opt/ /opt/
-
 # Copy the system configs to etc
 COPY etc/ /etc/
-
-# Link the user configs to be created when a new user is made
-RUN ln -s /opt/config/dunst /etc/skel/.config/dunst && \
-    ln -s /opt/config/eww /etc/skel/.config/eww && \
-    ln -s /opt/config/rofi /etc/skel/.config/rofi && \
-    ln -s /opt/config/Kvantum /etc/skel/.config/Kvantum && \
-    ln -s /opt/config/wallpapers /etc/skel/.config/wallpapers && \
-    ln -s /opt/config/kitty /etc/skel/.config/kitty && \
-# Since we allow a custom config as part of hyprland we link each file
-    ln -s /opt/config/hypr/decor.conf /etc/skel/.config/hypr/decor.conf && \
-    ln -s /opt/config/hypr/envs.conf /etc/skel/.config/hypr/envs.conf && \
-    ln -s /opt/config/hypr/execs.conf /etc/skel/.config/hypr/execs.conf && \
-    ln -s /opt/config/hypr/hyprland.conf /etc/skel/.config/hypr/hyprland.conf && \
-    ln -s /opt/config/hypr/inputs.conf /etc/skel/.config/hypr/inputs.conf && \
-    ln -s /opt/config/hypr/plugins.conf /etc/skel/.config/hypr/plugins.conf && \
-    ln -s /opt/config/hypr/pyprland.toml /etc/skel/.config/hypr/pyprland.toml
