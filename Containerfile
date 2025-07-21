@@ -12,14 +12,11 @@ ARG VARIANT=general
 # Install the low-level multimedia framework pipewire
 RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber && \
 
-# Install zsh with some packages that extend the functionality  
-install-packages-build zsh zsh-autosuggestions zsh-syntax-highlighting zsh-completions zoxide fzf && \
-
 # Install some required/optional dependencies for other packages
 install-packages-build chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip && \
 
 # Install hyprland desktop, terminals and ly login
-install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk kitty ly && \
+install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk gamescope kitty ly && \
 
 # Install nemo file manager and its extensions
 install-packages-build nemo nemo-terminal nemo-image-converter nemo-emblems nemo-audio-tab ffmpegthumbnailer && \
@@ -35,7 +32,7 @@ install-packages-build hyprpicker swww polkit-gnome rofi-wayland playerctl brigh
 install-packages-build podman podman-compose distrobox flatpak qemu-desktop virt-manager && \
 
 # Install extra CLI and GUI packages that I use
-install-packages-build steam ladybird-git mintstick rclone fastfetch zip unzip cmus btop mpd cava && \
+install-packages-build steam ladybird-git mintstick  zoxide fzf rclone fastfetch zip unzip cmus btop mpd cava && \
 
 # Install all other packages that I use
 install-packages-build mangohud tailscale fwupd
@@ -57,14 +54,14 @@ COPY --chown=1000:1000 /tmp_build/pkgbuilds/ /tmp_build/pkgbuilds/
 # Compile the libadapta package with a PKGBUILD
 #RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/libadapta makepkg -sir --noconfirm
     
-RUN runuser -u aur -- env -C /tmp_build mkdir scripts
-COPY --chown=1000:1000 /tmp_build/scripts/ /tmp_build/scripts/
+RUN runuser -u aur -- env -C /tmp_build mkdir colour-icons
+COPY --chown=1000:1000 /tmp_build/colour-icons/ /tmp_build/colour-icons/
 
 # While we still have the user and folder let's run some scripts that don't need root
-RUN runuser -u aur -- env -C /tmp_build/scripts/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
-    runuser -u aur -- env -C /tmp_build/scripts/colour-icons pip install --user --break-system-packages basic_colormath && \
+RUN runuser -u aur -- env -C /tmp_build/colour-icons git clone 'https://github.com/PapirusDevelopmentTeam/papirus-icon-theme.git' && \
+    runuser -u aur -- env -C /tmp_build/colour-icons pip install --user --break-system-packages basic_colormath && \
     chown -R aur:aur /usr/share/icons && \
-    runuser -u aur -- env -C /tmp_build/scripts/colour-icons python colour-icons.py
+    runuser -u aur -- env -C /tmp_build/colour-icons python colour-icons.py
 
 # Paru will only install 2 packages at a time 
 # For debugging they are all on their own line
