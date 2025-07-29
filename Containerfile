@@ -68,7 +68,9 @@ RUN runuser -u aur -- env -C /tmp_build/colour-icons git clone 'https://github.c
 # Some packages will be in the chaotic AUR but I'll keep them here
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm --removemake bulky; \
+    runuser -u aur -- paru -S --noconfirm --removemake cinnamon-sounds --assume-installed cinnamon; \
     runuser -u aur -- paru -S --noconfirm --removemake file-roller-linuxmint; \
+    runuser -u aur -- paru -S --noconfirm --removemake celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm --removemake cake-wallet-bin; \
     runuser -u aur -- paru -S --noconfirm --removemake gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm --removemake fzf-tab-git; \
