@@ -32,7 +32,7 @@ install-packages-build hyprpicker swww polkit-gnome rofi-wayland playerctl brigh
 install-packages-build podman podman-compose distrobox flatpak qemu-desktop virt-manager && \
 
 # Install extra CLI and GUI packages that I use
-install-packages-build steam ladybird-git wget zoxide fzf rclone fastfetch zip unzip cmus btop mpd cava && \
+install-packages-build steam ladybird-git mintstick wget zoxide fzf rclone fastfetch zip unzip cmus btop mpd cava && \
 
 # Install all other packages that I use
 install-packages-build mangohud tailscale fwupd
@@ -52,8 +52,7 @@ RUN runuser -u aur -- env -C /tmp_build mkdir pkgbuilds
 COPY --chown=1000:1000 /tmp_build/pkgbuilds/ /tmp_build/pkgbuilds/
 # Compile some linuxmind packages with a PKGBUILD
 RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/mint-artwork makepkg -sir --noconfirm; \
-    runuser -u aur -- env -C /tmp_build/pkgbuilds/mint-celluloid makepkg -sir --noconfirm; \
-    runuser -u aur -- env -C /tmp_build/pkgbuilds/mintstick-bin makepkg -sir --noconfirm
+    runuser -u aur -- env -C /tmp_build/pkgbuilds/mint-celluloid makepkg -sir --noconfirm
     
 RUN runuser -u aur -- env -C /tmp_build mkdir colour-icons
 COPY --chown=1000:1000 /tmp_build/colour-icons/ /tmp_build/colour-icons/
