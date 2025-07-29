@@ -1,5 +1,3 @@
-(deflisten cava "$HOME/.config/eww/scripts/cava-internal.sh")
-
 (defwidget activate-linux []
   (box
     :orientation "v"
@@ -122,18 +120,4 @@
     time.hour > 19 && time.hour <= 21
     ? "Late Evening" :
   time.hour > 21 ? "Night" : "Midnight"})
-)
-
-(defwindow cava
-  :monitor 0
-  :stacking "bg"
-  :geometry (geometry :x "0%" :y "20px" :width "100%" :anchor "top center")
-  (cava)
-)
-
-(defwidget cava []
-  (label :vexpand "false" :hexpand "false" :space-evenly "false"
-    :class "cavabar"
-    :text cava
-  )
 )

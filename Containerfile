@@ -13,7 +13,7 @@ ARG VARIANT=general
 RUN install-packages-build pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber && \
 
 # Install some required/optional dependencies for other packages
-install-packages-build chafa libxnvctrl bat yt-dlp glib2-devel lshw python-pip && \
+install-packages-build chafa libxnvctrl bat yt-dlp glib2-devel lshw dnsmasq python-pip && \
 
 # Install hyprland desktop, terminals and ly login
 install-packages-build hyprland xdg-desktop-portal-hyprland xdg-desktop-portal-gtk gamescope kitty ly && \
@@ -68,9 +68,9 @@ RUN runuser -u aur -- env -C /tmp_build/colour-icons git clone 'https://github.c
 # Some packages will be in the chaotic AUR but I'll keep them here
 # This is to make it clear it it's part of the AUR
 RUN runuser -u aur -- paru -S --noconfirm --removemake bulky; \
-    runuser -u aur -- paru -S --noconfirm --removemake cinnamon-sounds --assume-installed cinnamon; \
-    runuser -u aur -- paru -S --noconfirm --removemake file-roller-linuxmint; \
-    runuser -u aur -- paru -S --noconfirm --removemake celluloid-linuxmint; \
+#    runuser -u aur -- paru -S --noconfirm --removemake cinnamon-sounds --assume-installed cinnamon; \
+#    runuser -u aur -- paru -S --noconfirm --removemake file-roller-linuxmint; \
+#    runuser -u aur -- paru -S --noconfirm --removemake celluloid-linuxmint; \
     runuser -u aur -- paru -S --noconfirm --removemake cake-wallet-bin; \
     runuser -u aur -- paru -S --noconfirm --removemake gruvbox-gtk-theme-git; \
     runuser -u aur -- paru -S --noconfirm --removemake fzf-tab-git; \
