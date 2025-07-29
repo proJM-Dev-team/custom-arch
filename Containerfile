@@ -48,11 +48,8 @@ RUN useradd -m -s /bin/bash aur && \
     runuser -u aur -- env -C /tmp_build git clone 'https://aur.archlinux.org/paru-bin.git' && \
     runuser -u aur -- env -C /tmp_build/paru-bin makepkg -si --noconfirm
 
-RUN runuser -u aur -- env -C /tmp_build mkdir pkgbuilds
-COPY --chown=1000:1000 /tmp_build/pkgbuilds/ /tmp_build/pkgbuilds/
-# Compile some linuxmind packages with a PKGBUILD
-RUN runuser -u aur -- env -C /tmp_build/pkgbuilds/mint-artwork makepkg -sir --noconfirm; \
-    runuser -u aur -- env -C /tmp_build/pkgbuilds/mint-celluloid makepkg -sir --noconfirm
+#RUN runuser -u aur -- env -C /tmp_build mkdir pkgbuilds
+#COPY --chown=1000:1000 /tmp_build/pkgbuilds/ /tmp_build/pkgbuilds/
     
 RUN runuser -u aur -- env -C /tmp_build mkdir colour-icons
 COPY --chown=1000:1000 /tmp_build/colour-icons/ /tmp_build/colour-icons/
